@@ -25,4 +25,7 @@ public class Department implements Serializable {
 
     @Column(name = "department_name")
     private String departmentName;
+
+    @Column(name = "head_id")
+    private Long headId;
 }

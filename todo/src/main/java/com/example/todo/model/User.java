@@ -43,6 +43,9 @@ public class User implements Serializable {
     @Column(name = "salary")
     private Float salary;
 
+    @Column(name = "department_id")
+    private Long departmentId;
+
     public User(String username, String password, String role) {
         this.username = username;
         this.password = password;
