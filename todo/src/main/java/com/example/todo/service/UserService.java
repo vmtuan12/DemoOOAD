@@ -5,6 +5,7 @@ import com.example.todo.exception.WrongPasswordException;
 import com.example.todo.http.request.UserRequest;
 import com.example.todo.model.User;
 import com.example.todo.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserService implements ServiceInterface {
+@AllArgsConstructor
+public class UserService {
 
     @Autowired
     UserRepository userRepository;
