@@ -42,11 +42,19 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
-                                .requestMatchers("/auth/**", "/user/add/**").permitAll()
+                                .requestMatchers("/auth/**").permitAll()
+                )
+                .authorizeHttpRequests(authorizeHttpRequests ->
+                        authorizeHttpRequests
+                                .requestMatchers("/notification/**").authenticated()
                 )
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
                                 .requestMatchers("/user/get/**").hasAnyAuthority("EMPLOYEE")
+                )
+                .authorizeHttpRequests(authorizeHttpRequests ->
+                        authorizeHttpRequests
+                                .requestMatchers("/user/add/**").hasAnyAuthority("ADMIN")
                 )
                 .sessionManagement(sessionManagement ->
                         sessionManagement
