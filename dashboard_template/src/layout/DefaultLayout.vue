@@ -1,8 +1,9 @@
 <script setup>
 import { computed, onBeforeMount, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import Navbar from '../components/UI/Navbar.vue';
 import ProfileDropdown from '../components/UI/ProfileDropdown.vue'
+import NotiDropdown from '../components/UI/NotiDropdown.vue'
+import Navbar from '../components/ui/navbar.vue';
 
 const smallBar = ref(false)
 const route = useRoute()
@@ -45,8 +46,11 @@ watch(() => route.fullPath, () => {
                 class="sticky z-10 w-full top-0 flex items-center justify-between py-3 rounded-b-3xl transition-all duration-500 ease-in-out"
                 :class="scrollPosition > 0 ? 'bg-[#52a1f5] text-white px-5' : 'text-[#52a1f5]'"
             >
-                <p class="text-xl font-bold">Dashboard</p>
-                <ProfileDropdown />
+                <p class="text-xl font-bold">Quản lý nhân viên</p>
+                <div class="flex items-center gap-x-4">
+                    <NotiDropdown />
+                    <ProfileDropdown />
+                </div>
             </div>
             <svg 
                 @click="smallBar = !smallBar"
