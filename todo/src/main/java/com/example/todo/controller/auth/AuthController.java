@@ -1,11 +1,11 @@
 package com.example.todo.controller.auth;
 
-import com.example.todo.controller.ControllerInterface;
 import com.example.todo.http.response.AuthResponse;
 import com.example.todo.http.request.AuthRequest;
 import com.example.todo.http.response.ErrorResponse;
 import com.example.todo.http.response.Response;
 import com.example.todo.service.JwtService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthController implements ControllerInterface {
+@AllArgsConstructor
+public class AuthController {
 
     @Autowired
     AuthenticationManager authenticationManager;
