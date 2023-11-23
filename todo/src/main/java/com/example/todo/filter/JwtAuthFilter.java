@@ -60,7 +60,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
 
         String path = request.getServletPath();
-        return path.startsWith("/auth");
+        return (path.startsWith("/auth") || path.startsWith("/user/add"));
     }
 
     private byte[] restResponseBytes(ErrorResponse eErrorResponse) throws IOException {

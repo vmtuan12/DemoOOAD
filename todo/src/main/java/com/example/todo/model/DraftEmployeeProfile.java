@@ -1,19 +1,21 @@
 package com.example.todo.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name = "member")
+@Table(name = "draft_employee_profile")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements Serializable {
+public class DraftEmployeeProfile implements Serializable {
 
     private static final long serialVersionUID = -197553281792804396L;
 
@@ -22,14 +24,8 @@ public class User implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username")
-    private String username;
-
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "role")
-    private String role;
+    @Column(name = "employee_id")
+    private Long employeeId;
 
     @Column(name = "birthday")
     private LocalDate birthday;
@@ -40,13 +36,7 @@ public class User implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "salary")
-    private Float salary;
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 
-    public User(String username, String password, String role) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
-
-    }
 }

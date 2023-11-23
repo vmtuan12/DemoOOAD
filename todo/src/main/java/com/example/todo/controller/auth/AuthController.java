@@ -28,7 +28,7 @@ public class AuthController implements ControllerInterface {
         if(request.getUsername() == null || request.getPassword() == null) {
             throw new RuntimeException("missing parameter");
         }
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), null));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         if(authentication.isAuthenticated()) {
             return new AuthResponse(jwtService.generateToken(request.getUsername()));
         } else {
