@@ -66,7 +66,7 @@ const borderStyle = computed(() => {
         @input="$emit('update:modelValue', $event.target.value)"
         :placeholder="placeholder" 
         :type="type"
-        class="border-solid p-2.5 font-medium placeholder:text-gray-500"
+        class="border-solid p-2.5 font-medium placeholder:text-gray-500 w-full"
         :class="borderStyle"
     />
 </template>
