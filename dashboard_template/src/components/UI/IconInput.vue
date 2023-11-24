@@ -12,9 +12,10 @@ const props = defineProps([
     'underlineWeight',
     'noBorder',
     'error',
-    'autocomplete'
+    'autocomplete',
+    'disabled'
 ]);
-const emit = defineEmits(['update:modelValue', 'focusout']);
+const emit = defineEmits(['update:modelValue', 'focusout', 'focus']);
 
 const round = {
     sm: 'rounded',
@@ -94,7 +95,9 @@ onMounted(() => {
             @input="$emit('update:modelValue', $event.target.value)"
             :placeholder="placeholder" 
             :type="type"
+            :disabled="disabled"
             @focusout="$emit('focusout')"
+            @focusin="$emit('focus')"
             class="placeholder:text-gray-500 w-full"
         />
     </div>

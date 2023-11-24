@@ -123,6 +123,7 @@ const users = ref([
     <div>
         <div class="w-full mb-4 grid grid-cols-1 xl:grid-cols-2 grid-rows-[repeat(x,max-content),1fr] gap-4">
             <StatisticCard 
+                to="/request"
                 statistic="Tạo và gửi yêu cầu" 
                 category="comments"
                 class="rounded-xl shadow-md"
@@ -133,6 +134,7 @@ const users = ref([
                 </svg>
             </StatisticCard>
             <StatisticCard 
+                to="/salary"
                 statistic="Lương cá nhân" 
                 category="income"
                 color="success"
@@ -142,30 +144,6 @@ const users = ref([
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             </StatisticCard>
-            <!-- <StatisticCard 
-                statistic="800" 
-                category="new users"
-                color="orange"
-                class="rounded-xl shadow-md"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" class="w-7 h-7 text-[#f96300]">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-                </svg>
-            </StatisticCard>
-            <StatisticCard 
-                statistic="50" 
-                category="dishes"
-                color="neon"
-                class="rounded-xl shadow-md"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-meat w-7 h-7 text-[#6c47ff]" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" >
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M13.62 8.382l1.966 -1.967a2 2 0 1 1 3.414 -1.415a2 2 0 1 1 -1.413 3.414l-1.82 1.821"></path>
-                    <path d="M5.904 18.596c2.733 2.734 5.9 4 7.07 2.829c1.172 -1.172 -.094 -4.338 -2.828 -7.071c-2.733 -2.734 -5.9 -4 -7.07 -2.829c-1.172 1.172 .094 4.338 2.828 7.071z"></path>
-                    <path d="M7.5 16l1 1"></path>
-                    <path d="M12.975 21.425c3.905 -3.906 4.855 -9.288 2.121 -12.021c-2.733 -2.734 -8.115 -1.784 -12.02 2.121"></path>
-                </svg>
-            </StatisticCard> -->
         </div>
         <div class="bg-white rounded-xl shadow flex flex-col space-y-4 p-4 mb-4">
             <span class="text-xl font-bold text-[#52a1f5]">Giới thiệu về công ty</span>

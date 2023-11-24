@@ -33,14 +33,19 @@ const router = createRouter({
           component: () => import('@/pages/Home.vue'),
         },
         {
-          path: 'work',
-          name: 'Work',
-          component: () => import('@/pages/Work.vue'),
+          path: 'request',
+          name: 'Request',
+          component: () => import('@/pages/Request.vue'),
         },
         {
           path: 'profile',
           name: 'UserProfile',
           component: () => import('@/pages/PersonalUserProfile.vue'),
+        },
+        {
+          path: 'salary',
+          name: 'Salary',
+          component: () => import('@/pages/Salary.vue'),
         },
       ]
     },

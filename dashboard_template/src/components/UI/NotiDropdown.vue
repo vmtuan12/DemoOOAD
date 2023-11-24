@@ -50,6 +50,7 @@ const noti = [
         </svg>
         <Transition name="bounce">
             <div v-if="popupShowed" class="bg-white flex flex-col space-y-3 text-[#1d1d1d] p-3 rounded-[4px] absolute z-10 mt-12 mr-1 shadow-md w-[30rem] max-h-52 overflow-y-scroll">
+                <p class="px-4 font-bold text-[#f96300] text-lg">Thông báo</p>
                 <Notification v-for="item in noti" :key="item.id" :notiId="item.id" :sender="item.sender" :content="item.content"/>
             </div>
         </Transition>
