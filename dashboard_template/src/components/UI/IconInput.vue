@@ -98,7 +98,7 @@ onMounted(() => {
             :disabled="disabled"
             @focusout="$emit('focusout')"
             @focusin="$emit('focus')"
-            class="placeholder:text-gray-500 w-full"
+            class="placeholder:text-gray-500 w-full bg-transparent"
         />
     </div>
 </template>
