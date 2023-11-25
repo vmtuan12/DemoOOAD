@@ -46,6 +46,9 @@ public class WorkRequest implements Serializable {
     @Column(name = "note")
     private String note;
 
+    @Column(name = "status", columnDefinition = "TINYINT(1)")
+    private Boolean status;
+
     @Column(name = "is_approved_by_head_of_dep")
     private Boolean isApprovedByHeadOfDep = false;
 

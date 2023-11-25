@@ -49,6 +49,9 @@ public class MonthlySalaryComplainRequest implements Serializable {
     @Column(name = "note")
     private String note;
 
+    @Column(name = "status")
+    private Boolean status;
+
     @Transient
     private RequestType type = RequestType.MONTH_SAL;
 }

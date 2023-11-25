@@ -46,6 +46,9 @@ public class PersonalRequest implements Serializable {
     @Column(name = "note")
     private String note;
 
+    @Column(name = "status")
+    private Boolean status;
+
     @Transient
     private RequestType type = RequestType.CA_NHAN;
 }

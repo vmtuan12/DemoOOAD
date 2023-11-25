@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Modal from '../components/UI/Modal.vue';
 import ModalCard from '../components/UI/ModalCard.vue';
 import HorizontalCard from '../components/UI/Request/HorizontalCard.vue';
@@ -85,6 +85,54 @@ const sendRequest = () => {
 
 };
 
+const fetchRequestData = async () => {
+    const res = await fetch(`http://localhost:8080/request/all-sent`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+    })
+    if(res.error) {
+        console.log(res.error);
+    }
+    const dataFetched = JSON.parse(await res.text());
+    data.value = dataFetched;
+};
+
+const requestDetail = ref(null);
+
+const openDetail = async (request) => {
+    
+    const res = await fetch(`http://localhost:8080/request/detail?id=${request.id}&type=${request.type}`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+    })
+    if(res.error) {
+        console.log(res.error);
+    }
+    const dataFetched = JSON.parse(await res.text());
+    requestDetail.value = dataFetched;
+    detailCondition.value = true;
+}
+
+const statusColor = (status) => {
+    if (status == 1) {
+        return 'text-[#39c0c8]';
+    } else if (status == 0) {
+        return 'text-[#f34971]';
+    } else {
+        return 'text-slate-400';
+    }
+};
+
+onMounted(() => {
+    fetchRequestData();
+});
+
 </script>
 
 <template>
@@ -113,7 +161,7 @@ const sendRequest = () => {
                     <span>Yêu cầu đã xử lý</span>
                 </div>
             </div>
-            <div>
+            <div class="relative z-0">
                 <RequestPicker @emit-bind-type="pickRequestType" />
             </div>
         </div>
@@ -124,7 +172,7 @@ const sendRequest = () => {
             <span class="text-center">Người xử lý</span>
             <span class="text-center">Trạng thái</span>
         </div>
-        <HorizontalCard v-for="item in data" :key="item.id" :request="item" @open-detail="detailCondition = true">
+        <HorizontalCard v-for="item in data" :key="item" :request="item" @open-detail="openDetail(item)">
             <svg v-if="item.type == 'CONG_VIEC'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                 <path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5zm-3 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
                 <path d="M3 18.4v-2.796a4.3 4.3 0 00.713.31A26.226 26.226 0 0012 17.25c2.892 0 5.68-.468 8.287-1.335.252-.084.49-.189.713-.311V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.282-4.282.427-6.477.427a49.19 49.19 0 01-6.477-.427C4.047 21.128 3 19.852 3 18.4z" />
@@ -152,32 +200,31 @@ const sendRequest = () => {
         <Modal :condition="detailCondition" @exit-modal="detailCondition = false">
             <ModalCard @exit-modal="detailCondition = false" class="max-w-4xl rounded-lg shadow">
                 <template #title>
-                    <p class="text-center text-3xl font-semibold">Yêu cầu tăng lương</p>
+                    <p class="text-center text-3xl font-semibold">{{ requestDetail.title }}</p>
                 </template>
                 <template #body>
-                    <p class="text-right px-4 text-[#39c0c8] font-bold">Phê duyệt</p>
+                    <p class="text-right px-4 font-bold" :class="statusColor(requestDetail.status)">{{ requestDetail.statusStr }}</p>
                     <div class="max-h-96 overflow-y-scroll pt-4 items-center grid grid-cols-3 grid-rows-[repeat(x,max-content),1fr] gap-x-32 gap-y-10 px-4">
                         <div>
                             <p class="text-sm font-bold text-slate-800">Thời gian gửi</p>
-                            <p>28/12/2003 18:00:00</p>
+                            <p>{{ requestDetail.requestTimeStr }}</p>
                         </div>
                         <div>
                             <p class="text-sm font-bold text-slate-800">Thời gian nhận</p>
-                            <p>28/12/2003 18:00:00</p>
+                            <p>{{ requestDetail.handledTimeStr }}</p>
                         </div>
                         <div>
                             <p class="text-sm font-bold text-slate-800 text-right">Người xử lý</p>
-                            <p class="text-right">Trần Hà Phương</p>
+                            <p class="text-right">{{ requestDetail.receiveUser }}</p>
                         </div>
                     </div>
-                    <div class="mt-4 px-4">
+                    <div class="my-4 px-4">
                         <p class="text-sm font-bold text-slate-800">Nội dung</p>
-                        <p class="text-justify">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
+                        <p class="text-justify" v-html="requestDetail.content">
+                            
                         </p>
-                        <p class="text-sm font-bold text-slate-800">Ghi chú</p>
-                        <p class="text-justify">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        <p class="text-sm font-bold text-slate-800 mt-4">Ghi chú</p>
+                        <p class="text-justify" v-html="requestDetail.note">
                         </p>
                     </div>
                 </template>

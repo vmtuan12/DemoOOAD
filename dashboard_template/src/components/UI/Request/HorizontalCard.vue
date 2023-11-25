@@ -1,6 +1,18 @@
 <script setup>
+import { computed } from 'vue';
+
 const props = defineProps(['request']);
 const emits = defineEmits(['openDetail']);
+
+const statusColor = computed(() => {
+    if (props.request.status == 1) {
+        return 'text-[#39c0c8]';
+    } else if (props.request.status == 0) {
+        return 'text-[#f34971]';
+    } else {
+        return 'text-slate-400';
+    }
+});
 </script>
 
 <template>
@@ -11,9 +23,9 @@ const emits = defineEmits(['openDetail']);
         <div class="w-full flex justify-center text-[#52a1f5]">
             <slot></slot>
         </div>
-        <span class="text-justify">{{ request.title }}</span>
-        <span class="text-center">{{ request.sendTime }}</span>
-        <span class="text-center">{{ request.receiver }}</span>
-        <span class="text-center">{{ request.status }}</span>
+        <span>{{ request.title }}</span>
+        <span class="text-center">{{ request.requestTimeStr }}</span>
+        <span class="text-center">{{ request.receiveUser }}</span>
+        <span class="text-center font-semibold" :class="statusColor">{{ request.statusStr }}</span>
     </div>
 </template>

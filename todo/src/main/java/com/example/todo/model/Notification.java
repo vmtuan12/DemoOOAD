@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
@@ -35,4 +36,10 @@ public class Notification implements Serializable {
 
     @Column(name = "sent_time")
     private LocalDateTime sentTime;
+
+    @Transient
+    public String getSentTimeStr() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return sentTime.format(formatter);
+    }
 }

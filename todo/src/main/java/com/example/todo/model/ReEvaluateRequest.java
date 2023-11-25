@@ -49,6 +49,9 @@ public class ReEvaluateRequest implements Serializable {
     @Column(name = "note")
     private String note;
 
+    @Column(name = "status")
+    private Boolean status;
+
     @Transient
     private RequestType type = RequestType.RE_EVAL;
 }
