@@ -1,5 +1,6 @@
 package com.example.todo.model;
 
+import com.example.todo.enums.RequestType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,4 +48,7 @@ public class WorkRequest implements Serializable {
 
     @Column(name = "is_approved_by_head_of_dep")
     private Boolean isApprovedByHeadOfDep = false;
+
+    @Transient
+    private RequestType type = RequestType.CONG_VIEC;
 }

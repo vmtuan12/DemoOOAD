@@ -1,5 +1,6 @@
 package com.example.todo.model;
 
+import com.example.todo.enums.RequestType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,4 +51,7 @@ public class FixedSalaryChangeRequest implements Serializable {
 
     @Column(name = "note")
     private String note;
+
+    @Transient
+    private RequestType type = RequestType.FIXED_SAL;
 }
