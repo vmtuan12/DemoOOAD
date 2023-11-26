@@ -30,6 +30,10 @@ const fetchData = async () => {
 };
 
 const sendModify = async () => {
+    if (invalidDob) {
+        return;
+    }
+    
     const res = await fetch("http://localhost:8080/user/modify-self", {
         method: "PUT",
         headers: {
