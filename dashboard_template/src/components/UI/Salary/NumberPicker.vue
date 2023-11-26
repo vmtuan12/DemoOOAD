@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Input from '../Input.vue';
 
-const props = defineProps(['list']);
+const props = defineProps(['list', 'data']);
 const emits = defineEmits(['bindType']);
 
 const openPopup = ref(false);
@@ -14,6 +14,10 @@ const bindData = (val) => {
     openPopup.value = false;
     emits('bindType', val);
 };
+
+onMounted(() => {
+    data.value = props.data;
+});
 </script>
 
 <template>

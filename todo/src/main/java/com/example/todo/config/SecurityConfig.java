@@ -52,6 +52,7 @@ public class SecurityConfig {
                                         "/user/modify-self/**",
                                         "/request/all-sent/**",
                                         "/request/detail/**",
+                                        "/salary/own/**",
                                         "/request/send-new-request")
                                 .authenticated()
                 )

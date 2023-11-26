@@ -1,9 +1,9 @@
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, onBeforeMount, onMounted, ref, watch } from 'vue';
 import NumberPicker from '../components/UI/Salary/NumberPicker.vue';
 import Button from '../components/UI/Button.vue';
 
-const years = ref([2021, 2022, 2023]);
+const years = ref([2023, 2022, 2021]);
 const quarters = ref([1, 2, 3, 4]);
 const months = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
 
@@ -33,6 +33,10 @@ watch([selectedYear, selectedQuarter, selectedMonth], () => {
     console.log(selectedYear.value, selectedQuarter.value, selectedMonth.value);
 });
 
+onBeforeMount(() => {
+    selectedYear.value = years.value[0]
+});
+
 </script>
 
 <template>
@@ -40,7 +44,7 @@ watch([selectedYear, selectedQuarter, selectedMonth], () => {
         <div class="grid grid-cols-3 grid-rows-[repeat(x,max-content),1fr] gap-x-5">
             <div>
                 <p class="font-bold text-sm text-slate-700 mb-1">Năm</p>
-                <NumberPicker :list="years" @bind-type="selectYear"/>
+                <NumberPicker :data="selectedYear" :list="years" @bind-type="selectYear"/>
             </div>
             <div>
                 <p class="font-bold text-sm text-slate-700 mb-1">Quý</p>
