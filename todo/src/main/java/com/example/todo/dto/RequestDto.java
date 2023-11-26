@@ -36,7 +36,9 @@ public interface RequestDto {
 
         if (getStatus() == null) {
             return "Chờ xử lý";
-        } else if ((getStatus() instanceof Integer && getStatus().equals(1)) || (getStatus() instanceof Boolean && getStatus().equals(true))) {
+        } else if ((getStatus() instanceof Integer && getStatus().equals(1)) ||
+                (getStatus() instanceof Boolean && getStatus().equals(true)) ||
+                (getStatus() instanceof Byte && getStatus().equals(Byte.valueOf("1")))) {
             return "Phê duyệt";
         } else {
             return "Từ chối";

@@ -1,5 +1,6 @@
 package com.example.todo.service;
 
+import com.example.todo.dto.BaseMemberDto;
 import com.example.todo.exception.NoResultException;
 import com.example.todo.exception.WrongPasswordException;
 import com.example.todo.http.request.UserRequest;
@@ -32,5 +33,9 @@ public class UserService {
             throw new NoResultException("Found no user with id = " + id);
         }
         return user;
+    }
+
+    public List<BaseMemberDto> getAllMember() {
+        return userRepository.findAllMember();
     }
 }

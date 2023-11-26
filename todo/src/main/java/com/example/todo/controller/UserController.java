@@ -25,4 +25,9 @@ public class UserController {
     public ResponseEntity<?> getUser(@RequestParam Long id) {
         return ResponseEntity.ok().body(userService.getUserById(id));
     }
+
+    @GetMapping("/get-all")
+    public ResponseEntity<?> getAllUser() {
+        return ResponseEntity.ok().body(userService.getAllMember());
+    }
 }

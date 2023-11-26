@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Modal from '../components/UI/Modal.vue';
 import ModalCard from '../components/UI/ModalCard.vue';
 import Button from '../components/UI/Button.vue'
@@ -14,108 +14,41 @@ const header = ref([
         content: 'Nhân viên',
         colWidth: 'min-w-[10rem]',
         align: 'text-center',
-        key: 'Nhân viên'
+        key: 'name'
     },
     {
         content: 'Phòng/ban',
         colWidth: 'min-w-[10rem]',
         align: 'text-center',
-        key: 'Phòng/ban'
+        key: 'department'
     },
     {
         content: 'Chức vụ',
         colWidth: 'min-w-[10rem]',
         align: 'text-center',
-        key: 'Chức vụ'
+        key: 'roleStr'
     },
 ]);
 
-const body = ref([
-    {
-        'Nhân viên': 'Lorem ipsum',
-        'Phòng/ban': 'Lorem ipsum',
-        'Chức vụ': 'Lorem ipsum',
-    },
-    {
-        'Nhân viên': 'Lorem ipsum',
-        'Phòng/ban': 'Lorem ipsum',
-        'Chức vụ': 'Lorem ipsum',
-    },
-    {
-        'Nhân viên': 'Lorem ipsum',
-        'Phòng/ban': 'Lorem ipsum',
-        'Chức vụ': 'Lorem ipsum',
-    },
-    {
-        'Nhân viên': 'Lorem ipsum',
-        'Phòng/ban': 'Lorem ipsum',
-        'Chức vụ': 'Lorem ipsum',
-    },
-    {
-        'Nhân viên': 'Lorem ipsum',
-        'Phòng/ban': 'Lorem ipsum',
-        'Chức vụ': 'Lorem ipsum',
-    },
-    {
-        'Nhân viên': 'Lorem ipsum',
-        'Phòng/ban': 'Lorem ipsum',
-        'Chức vụ': 'Lorem ipsum',
-    },
-    {
-        'Nhân viên': 'Lorem ipsum',
-        'Phòng/ban': 'Lorem ipsum',
-        'Chức vụ': 'Lorem ipsum',
-    },
-    {
-        'Nhân viên': 'Lorem ipsum',
-        'Phòng/ban': 'Lorem ipsum',
-        'Chức vụ': 'Lorem ipsum',
-    },
-    {
-        'Nhân viên': 'Lorem ipsum',
-        'Phòng/ban': 'Lorem ipsum',
-        'Chức vụ': 'Lorem ipsum',
-    },
-]);
+const employeeData = ref(null);
+const fetchEmployeeData = async () => {
+    const res = await fetch("http://localhost:8080/user/get-all", {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+    })
+    if(res.error) {
+        console.log(res.error);
+    }
+    const dataFetched = JSON.parse(await res.text());
+    employeeData.value = dataFetched;
+};
 
-const users = ref([
-    {
-        name: 'Minh Tuan',
-        region: 'Ha Noi'
-    },
-    {
-        name: 'Ha Phuong',
-        region: 'Da Nang'
-    },
-    {
-        name: 'Minh Phuong',
-        region: 'Thanh Hoa'
-    },
-    {
-        name: 'Phuong',
-        region: 'Ba Vi'
-    },
-    {
-        name: 'Tran Phuong',
-        region: 'Hue'
-    },
-    {
-        name: 'Minh Phuong',
-        region: 'Ha Noi'
-    },
-    {
-        name: 'Tuan Phuong',
-        region: 'Lao cai'
-    },
-    {
-        name: 'Phuong Vu',
-        region: 'Yen Bai'
-    },
-    {
-        name: 'Tran Tuan',
-        region: 'Nghe An'
-    },
-]);
+onMounted(() => {
+    fetchEmployeeData();
+});
 
 </script>
 
@@ -172,15 +105,17 @@ const users = ref([
             <div class="w-full max-lg:w-full bg-white rounded-xl p-4 shadow">
                 <Table
                     :header="header"
-                    :data="body"
+                    :data="employeeData"
                     max-height="max-h-[20rem]"
                     name="Nhân viên công ty"
                 >
                     <template #action-header>
-                        Action
+                        
                     </template>
                     <template #action>
-                        <Button border-radius="full">Active</Button>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" class="w-8 h-8 text-[#52a1f5]">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
                     </template>
                 </Table>
             </div>

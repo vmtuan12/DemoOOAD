@@ -1,5 +1,6 @@
 package com.example.todo.repository;
 
+import com.example.todo.dto.BaseMemberDto;
 import com.example.todo.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +22,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("SELECT u.password FROM User u WHERE u.id = :id")
     String getPasswordById(@Param("id") Integer id);
+
+    @Query(value = """
+            SELECT m.name AS name, m.role AS role, IF(d.department_name IS NULL, 'N/a', d.department_name) AS department, IF(m.id = d.head_id, 1, 0) AS isHead
+            FROM member m LEFT JOIN department d on d.id = m.department_id
+            """, nativeQuery = true)
+    List<BaseMemberDto> findAllMember();
 }
