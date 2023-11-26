@@ -1,5 +1,7 @@
 package com.example.todo.controller;
 
+import com.example.todo.dto.ProfileModificationDto;
+import com.example.todo.model.ProfileModificationRequest;
 import com.example.todo.model.User;
 import com.example.todo.service.JwtService;
 import com.example.todo.service.UserService;
@@ -38,5 +40,10 @@ public class UserController {
     @GetMapping("/get-all")
     public ResponseEntity<?> getAllUser() {
         return ResponseEntity.ok().body(userService.getAllMember());
+    }
+
+    @PutMapping("/modify-self")
+    public ResponseEntity<?> modifySelf(@RequestBody ProfileModificationDto profileModificationDto) {
+        return ResponseEntity.ok().body(userService.modifySelf(profileModificationDto));
     }
 }

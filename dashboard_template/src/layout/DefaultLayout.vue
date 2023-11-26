@@ -43,7 +43,7 @@ watch(() => route.fullPath, () => {
             @scroll="handleScroll"
         >
             <div 
-                class="sticky z-10 w-full top-0 flex items-center justify-between py-3 rounded-b-3xl transition-all duration-500 ease-in-out"
+                class="sticky z-50 w-full top-0 flex items-center justify-between py-3 rounded-b-3xl transition-all duration-500 ease-in-out"
                 :class="scrollPosition > 0 ? 'bg-[#52a1f5] text-white px-5 shadow-md' : 'text-[#52a1f5]'"
             >
                 <p class="text-xl font-bold">Quản lý nhân viên</p>

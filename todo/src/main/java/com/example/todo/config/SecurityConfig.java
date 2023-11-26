@@ -49,6 +49,7 @@ public class SecurityConfig {
                                 .requestMatchers("/notification/**",
                                         "/user/get-all/**",
                                         "/user/get-self/**",
+                                        "/user/modify-self/**",
                                         "/request/all-sent/**",
                                         "/request/detail/**",
                                         "/request/send-new-request")
