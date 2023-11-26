@@ -48,8 +48,10 @@ public class SecurityConfig {
                         authorizeHttpRequests
                                 .requestMatchers("/notification/**",
                                         "/user/get-all/**",
+                                        "/user/get-self/**",
                                         "/request/all-sent/**",
-                                        "/request/detail/**")
+                                        "/request/detail/**",
+                                        "/request/send-new-request")
                                 .authenticated()
                 )
                 .authorizeHttpRequests(authorizeHttpRequests ->

@@ -28,4 +28,8 @@ public class Department implements Serializable {
 
     @Column(name = "head_id")
     private Long headId;
+
+    public String getFullDepartmentName() {
+        return "Phòng " + this.departmentName;
+    }
 }

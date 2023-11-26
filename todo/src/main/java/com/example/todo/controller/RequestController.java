@@ -29,4 +29,12 @@ public class RequestController {
                                               @RequestParam(name = "type") RequestType requestType) {
         return ResponseEntity.ok().body(requestService.getRequestDetail(id, requestType));
     }
+
+    @PostMapping("/send-new-request")
+    public ResponseEntity<?> getRequestDetail(@RequestBody Object request,
+                                              RequestType requestType,
+                                              @RequestHeader("Authorization") String token) {
+        requestService.addNewRequest(request, requestType, Long.parseLong(jwtService.extractId(token.substring(7))));
+        return ResponseEntity.ok().body(null);
+    }
 }

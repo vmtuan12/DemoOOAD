@@ -20,6 +20,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findById(Long id);
 
+    @Query("SELECT d.headId FROM User u JOIN Department d WHERE u.id = :id")
+    Long findHeadOfDepartmentId(Long id);
+
+    @Query(value = "SELECT u.id FROM member u WHERE u.role = 'HR' LIMIT 1", nativeQuery = true)
+    Long findHrId();
+
     @Query("SELECT u.password FROM User u WHERE u.id = :id")
     String getPasswordById(@Param("id") Integer id);
 

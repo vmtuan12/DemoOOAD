@@ -5,7 +5,10 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 @Data
 @Entity
@@ -40,16 +43,29 @@ public class User implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "address")
+    private String address;
+
     @Column(name = "salary")
     private Float salary;
 
-    @Column(name = "department_id")
-    private Long departmentId;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     public User(String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
 
+    }
+
+    public String getDobStr() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.birthday == null ? null : birthday.format(formatter);
+    }
+
+    public String getSalaryStr() {
+        return NumberFormat.getNumberInstance(Locale.US).format(this.salary) + " VNĐ";
     }
 }
