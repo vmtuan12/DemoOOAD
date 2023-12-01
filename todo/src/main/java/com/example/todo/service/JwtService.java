@@ -1,5 +1,6 @@
 package com.example.todo.service;
 
+import com.example.todo.http.response.AuthResponse;
 import com.example.todo.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -35,11 +36,15 @@ public class JwtService {
         return extractClaim(token, Claims::getId);
     }
 
-    public String generateToken(String username) {
+    public AuthResponse generateToken(String username) {
         HashMap<String, Object> map = new HashMap<>();
-        Integer id = userRepository.findUserIdByName(username);
+        Long id = userRepository.findUserIdByName(username);
+        String role = userRepository.findRoleById(id);
         map.put("jti", id);
-        return newToken(map, username);
+        return AuthResponse.builder()
+                .token(newToken(map, username))
+                .role(role)
+                .build();
     }
 
     public boolean tokenIsValid(String token, UserDetails userDetails) {

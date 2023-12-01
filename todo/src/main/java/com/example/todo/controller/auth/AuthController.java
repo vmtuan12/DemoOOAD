@@ -25,13 +25,12 @@ public class AuthController {
 
     @PostMapping("/sign-in")
     public Response authenticate(@RequestBody AuthRequest request) {
-        System.out.println(request);
         if(request.getUsername() == null || request.getPassword() == null) {
             throw new RuntimeException("missing parameter");
         }
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         if(authentication.isAuthenticated()) {
-            return new AuthResponse(jwtService.generateToken(request.getUsername()));
+            return jwtService.generateToken(request.getUsername());
         } else {
             return new ErrorResponse(400,"user not found");
         }

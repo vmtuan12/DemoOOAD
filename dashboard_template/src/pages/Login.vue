@@ -24,6 +24,9 @@ const signIn = async () => {
     if (res.status != 200) {
         wrongInfo.value = true;
     } else {
+        const dataFetched = JSON.parse(await res.text());
+        localStorage.setItem('token', dataFetched.token);
+        localStorage.setItem('role', dataFetched.role);
         router.push('/')
     }
 };
