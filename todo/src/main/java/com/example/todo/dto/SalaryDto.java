@@ -7,7 +7,7 @@ import java.util.Locale;
 public interface SalaryDto {
     Long getId();
     String getAccountantName();
-    Integer getMonth();
+    String getMonth();
     Float getFixedSalary();
     Float getInsuranceFee();
     Float getTaxFee();
@@ -21,5 +21,21 @@ public interface SalaryDto {
 
     default String getFixedSalaryStr() {
         return NumberFormat.getNumberInstance(Locale.US).format(Float.parseFloat((BigDecimal.valueOf(getFixedSalary())).toPlainString()));
+    }
+
+    default String getInsuranceStr() {
+        return NumberFormat.getNumberInstance(Locale.US).format(Float.parseFloat((BigDecimal.valueOf(getInsuranceFee())).toPlainString()));
+    }
+
+    default String getTaxStr() {
+        return NumberFormat.getNumberInstance(Locale.US).format(Float.parseFloat((BigDecimal.valueOf(getTaxFee())).toPlainString()));
+    }
+
+    default String getBonusStr() {
+        return NumberFormat.getNumberInstance(Locale.US).format(Float.parseFloat((BigDecimal.valueOf(getBonus())).toPlainString()));
+    }
+
+    default String getPenaltyStr() {
+        return NumberFormat.getNumberInstance(Locale.US).format(Float.parseFloat((BigDecimal.valueOf(getPenalty())).toPlainString()));
     }
 }

@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onBeforeMount, onMounted, ref, watch } from 'vue';
 import NumberPicker from '../components/UI/Salary/NumberPicker.vue';
+import Table from '../components/UI/Table.vue'
 import Button from '../components/UI/Button.vue';
 
 const years = ref([2023, 2022, 2021]);
@@ -29,9 +30,82 @@ const noTimeSelected = computed(() => {
             (selectedMonth.value == null || selectedMonth.value == undefined);
 });
 
+const header = ref([
+    {
+        content: 'Tháng',
+        colWidth: 'min-w-[1rem]',
+        align: 'text-center',
+        key: 'month'
+    },
+    {
+        content: 'Lương cứng',
+        colWidth: 'min-w-[3rem]',
+        align: 'text-center',
+        key: 'fixedSalaryStr'
+    },
+    {
+        content: 'Thưởng',
+        colWidth: 'min-w-[3rem]',
+        align: 'text-center',
+        key: 'bonusStr'
+    },
+    {
+        content: 'Phạt',
+        colWidth: 'min-w-[3rem]',
+        align: 'text-center',
+        key: 'penaltyStr'
+    },
+    {
+        content: 'Bảo hiểm',
+        colWidth: 'min-w-[3rem]',
+        align: 'text-center',
+        key: 'insuranceStr'
+    },
+    {
+        content: 'Thuế',
+        colWidth: 'min-w-[3rem]',
+        align: 'text-center',
+        key: 'taxStr'
+    },
+    {
+        content: 'Nhận',
+        colWidth: 'min-w-[3rem]',
+        align: 'text-center',
+        key: 'totalStr'
+    },
+]);
+
+const data = ref(null);
+let params = null
+const fetchData = async () => {
+
+    const res = await fetch(`http://localhost:8080/salary/own?${params}`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+    })
+    if(res.error) {
+        console.log(res.error);
+    }
+    const dataFetched = JSON.parse(await res.text());
+    data.value = dataFetched;
+};
+
 watch([selectedYear, selectedQuarter, selectedMonth], () => {
-    console.log(selectedYear.value, selectedQuarter.value, selectedMonth.value);
-});
+    params = ""
+    if (selectedYear.value !== null) {
+        params += `year=${selectedYear.value}&`
+    }
+    if (selectedQuarter.value !== null) {
+        params += `quarter=${selectedQuarter.value}&`
+    }
+    if (selectedMonth.value !== null) {
+        params += `month=${selectedMonth.value}`
+    }
+    fetchData()
+}, {immediate: false});
 
 onBeforeMount(() => {
     selectedYear.value = years.value[0]
@@ -60,7 +134,16 @@ onBeforeMount(() => {
             Chọn một thời gian cụ thể để có thể xem chi tiết lương
         </p>
         <div v-else>
-            123
+            <p v-if="data == null || data.length == 0" class="text-red-500 font-semibold text-xl text-center">Không có dữ liệu</p>
+            <div v-else>
+                <Table
+                    :header="header"
+                    :data="data"
+                    max-height="max-h-[20rem]"
+                    name="Lương tháng"
+                >
+                </Table>
+            </div>
         </div>
     </div>
 </template>

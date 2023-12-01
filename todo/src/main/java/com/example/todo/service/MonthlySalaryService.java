@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,7 +19,7 @@ public class MonthlySalaryService {
 
     public List<SalaryDto> getSalaryUser(Long userId, Integer year, Integer quarter, Integer month) {
         if (year == null) {
-            year = 2023;
+            year = LocalDate.now().getYear();
         }
 
         Integer startMonth = 1;
