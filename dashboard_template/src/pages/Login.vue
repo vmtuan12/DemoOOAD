@@ -7,19 +7,24 @@ import img from '../assets/vector_img.svg'
 const router = useRouter()
 
 const email = ref(null);
-const password = ref(null)
-const wrongEmail = ref(false)
-const wrongPassword = ref(false)
+const password = ref(null);
+const wrongInfo = ref(false);
 
-const signIn = () => {
-    router.push('/')
-};
-
-const validEmail = () => {
-    if (email.value !== null && email.value !== '') {
-        
+const signIn = async () => {
+    const res = await fetch(`http://localhost:8080/auth/sign-in`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: email.value,
+            password: password.value
+        })
+    })
+    if (res.status != 200) {
+        wrongInfo.value = true;
     } else {
-        wrongEmail.value = true
+        router.push('/')
     }
 };
 
@@ -34,9 +39,9 @@ const validEmail = () => {
             <p class="text-3xl max-md:text-2xl text-[#52a1f5] font-bold text-center">Đăng nhập</p>
             <div class="w-full">
                 <p class="font-bold text-[#1d1d1d] text-sm">Tài khoản</p>
-                <IconInput v-model="email" :error="wrongEmail" border-color="blue" type="text" placeholder="Nhập tài khoản..." class="w-full mb-6">
+                <IconInput v-model="email" border-color="blue" type="text" placeholder="Nhập tài khoản..." class="w-full mb-6">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                     </svg>
                 </IconInput>
                 <p class="font-bold text-[#1d1d1d] text-sm">Mật khẩu</p>
@@ -45,6 +50,12 @@ const validEmail = () => {
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                     </svg>
                 </IconInput>
+                <div class="text-red-500 space-x-2" v-if="wrongInfo">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline-block mb-1">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                    </svg>
+                    <span class="text-left font-semibold inline-block">Sai thông tin đăng nhập</span>
+                </div>
             </div>
             <button 
                 @click.prevent="signIn"
