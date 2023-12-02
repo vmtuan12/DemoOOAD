@@ -52,4 +52,10 @@ public class UserController {
                                             @RequestParam Integer pageSize) {
         return ResponseEntity.ok().body(userService.getAccounts(page - 1, pageSize));
     }
+
+    @DeleteMapping("/delete-account")
+    public ResponseEntity<?> deleteAccount(@RequestParam Long userId) {
+        userService.deleteAccount(userId);
+        return ResponseEntity.ok().body(null);
+    }
 }

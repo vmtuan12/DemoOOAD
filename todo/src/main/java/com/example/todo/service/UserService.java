@@ -70,4 +70,8 @@ public class UserService {
         }
         return new AccountTableDto(totalPage, userRepository.getAccounts(page*pageSize, pageSize));
     }
+
+    public void deleteAccount(Long userId) {
+        userRepository.deleteById(userId);
+    }
 }
