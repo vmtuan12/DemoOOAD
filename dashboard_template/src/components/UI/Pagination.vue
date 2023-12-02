@@ -43,6 +43,9 @@ const pageArray = computed(() => {
 })
 
 const changePage = (page) => {
+    if (props.currentPage == page) {
+        return;
+    }
     if(1 <= page && page <= props.totalPage) {
         emits('navigate', page)
     }

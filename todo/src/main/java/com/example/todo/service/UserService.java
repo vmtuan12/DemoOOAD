@@ -1,5 +1,7 @@
 package com.example.todo.service;
 
+import com.example.todo.dto.AccountDto;
+import com.example.todo.dto.AccountTableDto;
 import com.example.todo.dto.BaseMemberDto;
 import com.example.todo.dto.ProfileModificationDto;
 import com.example.todo.exception.NoResultException;
@@ -58,5 +60,14 @@ public class UserService {
             user.setBirthday(LocalDate.parse(profileModificationDto.getDob(), formatter));
         }
         return userRepository.save(user);
+    }
+
+    public AccountTableDto getAccounts(Integer page, Integer pageSize) {
+        Integer allAccounts = userRepository.countAccounts();
+        int totalPage = allAccounts/pageSize;
+        if (totalPage * pageSize != allAccounts) {
+            totalPage++;
+        }
+        return new AccountTableDto(totalPage, userRepository.getAccounts(page*pageSize, pageSize));
     }
 }

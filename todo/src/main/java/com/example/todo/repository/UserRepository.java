@@ -1,5 +1,6 @@
 package com.example.todo.repository;
 
+import com.example.todo.dto.AccountDto;
 import com.example.todo.dto.BaseMemberDto;
 import com.example.todo.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -37,4 +38,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             FROM member m LEFT JOIN department d on d.id = m.department_id
             """, nativeQuery = true)
     List<BaseMemberDto> findAllMember();
+
+    @Query(value = "SELECT u.id AS id, u.username AS account, u.name AS name FROM member u WHERE u.role <> 'ADMIN' LIMIT :limit OFFSET :offset", nativeQuery = true)
+    List<AccountDto> getAccounts(Integer offset, Integer limit);
+
+    @Query(value = "SELECT COUNT(u.id) FROM member u WHERE u.role <> 'ADMIN'", nativeQuery = true)
+    Integer countAccounts();
 }

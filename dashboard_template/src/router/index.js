@@ -47,6 +47,11 @@ const router = createRouter({
           name: 'Salary',
           component: () => import('@/pages/Salary.vue'),
         },
+        {
+          path: 'account',
+          name: 'Account',
+          component: () => import('@/pages/Account.vue'),
+        },
       ]
     },
     {

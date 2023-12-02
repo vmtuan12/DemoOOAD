@@ -29,7 +29,7 @@ const routeMatched = computed(() => {
 
                 <slot></slot>
             </div>
-            <p class="font-semibold text-base ml-2 relative py-4 mt-0.5">{{ content }}</p>
+            <p class="font-semibold text-base ml-2 relative py-4 mt-0.5 whitespace-nowrap">{{ content }}</p>
         </RouterLink>
     </div>
 </template>

@@ -62,7 +62,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
-                                .requestMatchers("/user/add/**").hasAnyAuthority("ADMIN")
+                                .requestMatchers("/user/add/**", "/user/all-account/**").hasAnyAuthority("ADMIN")
                 )
                 .sessionManagement(sessionManagement ->
                         sessionManagement

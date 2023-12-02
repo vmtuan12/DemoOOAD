@@ -46,4 +46,10 @@ public class UserController {
     public ResponseEntity<?> modifySelf(@RequestBody ProfileModificationDto profileModificationDto) {
         return ResponseEntity.ok().body(userService.modifySelf(profileModificationDto));
     }
+
+    @GetMapping("/all-account")
+    public ResponseEntity<?> getAllAccounts(@RequestParam Integer page,
+                                            @RequestParam Integer pageSize) {
+        return ResponseEntity.ok().body(userService.getAccounts(page - 1, pageSize));
+    }
 }
