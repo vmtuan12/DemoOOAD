@@ -58,4 +58,10 @@ public class UserController {
         userService.deleteAccount(userId);
         return ResponseEntity.ok().body(null);
     }
+
+    @PutMapping("/edit-account")
+    public ResponseEntity<?> editAccount(@RequestBody User user) {
+        userService.editAccount(user);
+        return ResponseEntity.ok().body(null);
+    }
 }

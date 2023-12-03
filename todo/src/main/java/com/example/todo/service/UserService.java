@@ -29,6 +29,7 @@ public class UserService {
 
     public void addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(user.getRole() == null ? "EMPLOYEE" : user.getRole());
         userRepository.save(user);
     }
 
@@ -73,5 +74,17 @@ public class UserService {
 
     public void deleteAccount(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    public void editAccount(User user) {
+        User currentUser = userRepository.findById(user.getId());
+        if (user.getUsername() != null && !user.getUsername().equals(currentUser.getUsername())) {
+            currentUser.setUsername(user.getUsername());
+        }
+        if (user.getPassword() != null) {
+            currentUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        currentUser.setRole(user.getRole());
+        userRepository.save(currentUser);
     }
 }

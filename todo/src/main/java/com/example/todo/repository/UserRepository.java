@@ -41,7 +41,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             """, nativeQuery = true)
     List<BaseMemberDto> findAllMember();
 
-    @Query(value = "SELECT u.id AS id, u.username AS account, u.name AS name FROM member u WHERE u.role <> 'ADMIN' LIMIT :limit OFFSET :offset", nativeQuery = true)
+    @Query(value = "SELECT u.id AS id, u.role AS role, u.username AS account, u.name AS name FROM member u WHERE u.role <> 'ADMIN' LIMIT :limit OFFSET :offset", nativeQuery = true)
     List<AccountDto> getAccounts(Integer offset, Integer limit);
 
     @Query(value = "SELECT COUNT(u.id) FROM member u WHERE u.role <> 'ADMIN'", nativeQuery = true)

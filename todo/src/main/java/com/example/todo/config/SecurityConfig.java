@@ -64,7 +64,8 @@ public class SecurityConfig {
                         authorizeHttpRequests
                                 .requestMatchers("/user/add/**",
                                         "/user/all-account/**",
-                                        "/user/delete-account/**")
+                                        "/user/delete-account/**",
+                                        "/user/edit-account/**")
                                 .hasAnyAuthority("ADMIN")
                 )
                 .sessionManagement(sessionManagement ->
